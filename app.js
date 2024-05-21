@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRoutes = require("./routes/auth");
 const documentRoutes = require("./routes/document");
+const roleRoutes = require("./routes/roles")
 const wss = require("./webSocket");
 const common = require("./config/common")
 const MONGODB_URI = common.config()["MONGODB_URI"]
@@ -15,14 +16,15 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(_ => {
-    console.log(`connected to mongo uri : ${MONGODB_URI}`)
+  console.log(`connected to mongo uri : ${MONGODB_URI}`)
 }).catch(e => {
-    console.log(`Catched error in connecting to mongo : ${e.message}`)
-    throw e
+  console.log(`Catched error in connecting to mongo : ${e.message}`)
+  throw e
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api', documentRoutes);
+app.use('/auth', authRoutes);
+app.use('/document/v1', documentRoutes);
+app.use('/role/v1', roleRoutes)
 
 const server = app.listen(PORT || 3000, () => {
   console.log(`Server is running on port ${PORT || 3000}`);

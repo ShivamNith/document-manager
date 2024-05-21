@@ -1,8 +1,8 @@
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const common = require("../config/common")
-const JWT_SECRET = common.config()["JWT_SECRET"]
-const JWT_REFRESH_SECRET = common.config()['JWT_REFRESH_SECRET']
+const common = require("../config/common");
+const { User } = require('../models/user');
+const JWT_SECRET = common.config()["JWT_SECRET"];
+const JWT_REFRESH_SECRET = common.config()['JWT_REFRESH_SECRET'];
 
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '15m' });
