@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const { User } = require("../models/user")
 const { Role } = require("../models/role")
 
 const userRoleSchema = new Schema({
   userId : { type: String, required: true },  
-  user: { type: User.schema, required: true },
+  userName: { type: String, required: true },
+  userEmail : { type: String, required: true },
   role: { type: Role.schema, required: true }
 }, { _id: false });
 
